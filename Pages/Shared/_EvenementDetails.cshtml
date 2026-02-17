@@ -1,0 +1,133 @@
+﻿@using _420_15D_FX_H26_TP1.Models
+@model Evenement
+
+@{
+    string d1 = Model.DateDebut.ToString("dd MMM yyyy");
+    string d2 = Model.DateFin.ToString("dd MMM yyyy");
+    // private readonly IConfiguration _configuration;
+    string img = string.IsNullOrEmpty(Model.Image) ? "/Images/parDefaut.jpg" : $"/Images/{Model.Image}";
+    Utilisateur orga = Model.Organisateur;
+}
+
+<div class="event-details glass card border-0 shadow-lg overflow-hidden">
+    <div class="row g-0">
+        <div class="col-12 col-lg-5">
+            <div class="event-hero">
+                <img src="@img" class="w-100 h-100 object-fit-cover" alt="Image événement" />
+                <div class="event-hero-overlay">
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge rounded-pill text-bg-dark">@d1</span>
+                        <span class="badge rounded-pill text-bg-dark">@d2</span>
+                            <span class="badge rounded-pill text-bg-success">@Model.Categorie.Nom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-7">
+            <div class="card-body p-4">
+                <h2 class="mb-1 fw-bold">@Model.Nom</h2>
+                <div class="text-muted mb-3">
+                    <span class="fw-semibold">@Model.Ville</span> — @Model.Adresse, @Model.codePostal
+                </div>
+
+                <div class="mb-3">
+                    <div class="fw-semibold mb-1">Description</div>
+                    <div class="event-desc">
+                        @(string.IsNullOrWhiteSpace(Model.Description) ? "Aucune description." : Model.Description)
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="fw-semibold mb-2">Organisateur</div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge rounded-pill text-bg-primary">👤</span>
+                        <div>
+                            <div class="fw-semibold">
+                                @(orga == null ? "Non défini" : $"{orga.Prenom} {orga.Nom}")
+                            </div>
+                            <div class="text-muted small">Compte utilisateur (AspNetUsers)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="fw-semibold mb-2">
+                        Participants (@(Model.Participants?.Count ?? 0))
+                    </div>
+
+                    @if (Model.Participants == null || Model.Participants.Count == 0)
+                    {
+                        <div class="text-muted">Aucun participant pour le moment.</div>
+                    }
+                    else
+                    {
+                        <div class="participants-list">
+                            @foreach (var p in Model.Participants)
+                            {
+                                var u = p.Utilisateur;
+                                <div class="participant-chip">
+                                    <span class="dot"></span>
+                                    <span class="fw-semibold">
+                                        @(u == null ? "Utilisateur inconnu" : $"{u.Prenom} {u.Nom}")
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="d-flex gap-2">
+
+                            if(!@Model.Participants.Any(p => p.UtilisateurId == User.Identity.Name) && !@User.Identity.Name==@Model.OrganisateurId)
+                            {
+                            <form method="post" class="flex-fill"
+                                  asp-page="/Participation/Participer" asp-route-id="@Model.Id">
+                                <button type="submit" class="btn btn-sm btn-success rounded-pill w-100">
+                                    Participer
+                                </button>
+                            </form>
+                            
+                            }
+                            else if(@User.Identity.Name == @Model.OrganisateurId))
+                            {
+                            <form method="post" class="flex-fill"
+                                  asp-page="/Evenements/Edit"  asp-route-id="@Model.Id">
+                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill w-100">
+                                    Modifier
+                                </button>
+                            </form>
+                            <form method="post" class="flex-fill"
+                                  asp-page="/Evenements/Delete"  asp-route-id="@Model.Id">
+                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill w-100">
+                                Supprimer
+                                </button>
+                            </form>
+                            }
+                            else{
+                            <form method="post" class="flex-fill"
+                                  asp-page="/Participation/Participer" asp-page-handler="Annuler" asp-route-id="@Model.Id">
+                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill w-100">
+                                    Annuler ma participation
+                                </button>
+                            </form>
+                            }
+
+                        </div>
+                    }
+                }
+
+
+
+                    <a class="btn btn-outline-primary rounded-pill px-4"
+                       asp-page="/Evenements/Index">
+                        Retour
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

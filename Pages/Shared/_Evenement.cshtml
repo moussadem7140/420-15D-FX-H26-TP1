@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using _420_15D_FX_H26_TP1.Models
+@model Evenement 
+
+@{
+    string d1 = Model.DateDebut.ToString("dd MMM yyyy");
+    string d2 = Model.DateFin.ToString("dd MMM yyyy");
+    // private readonly IConfiguration _configuration;
+    string img = string.IsNullOrEmpty(Model.Image) ? "/Images/parDefaut.jpg" : $"/Images/{Model.Image}";
+}
+
+<div class="event-card glass card border-0 shadow-sm overflow-hidden h-100">
+    <div class="event-thumb">
+        <img src="@img" class="w-100 h-100 object-fit-cover" alt="Image événement" />
+        <div class="event-badges">
+            <span class="badge rounded-pill text-bg-dark">@d1 → @d2</span>
+            @if (Model.Categorie != null)
+            {
+                <span class="badge rounded-pill text-bg-success">@Model.Categorie.Nom</span>
+            }
+        </div>
+    </div>
+
+    <div class="card-body p-3">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+            <div class="min-w-0">
+                <div class="fw-bold text-truncate" title="@Model.Nom">@Model.Nom</div>
+                <div class="text-muted small"> @Model.Ville</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer bg-transparent border-0 p-3 pt-0">
+        <div class="d-grid gap-2">
+            <!-- Bouton Détails -->
+            <a class="btn btn-sm btn-outline-primary rounded-pill"
+               asp-page="/Evenements/Details"
+               asp-route-id="@Model.Id">
+                Détails de l'evenement
+            </a>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div class="d-flex gap-2">
+
+                   if(Model.Participants.Any(p => p.UserName == User.Identity.Name))
+                    {
+                        <form method="post" class="flex-fill"
+                              asp-page="/Participation/Participer" asp-page-handler="Annuler" asp-route-id="@Model.Id">
+                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill w-100">
+                                Annuler ma participation
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" class="flex-fill"
+                               asp-page="/Participation/Participer" asp-route-id="@Model.Id">
+                            <button type="submit" class="btn btn-sm btn-success rounded-pill w-100">
+                                Participer
+                            </button>
+                        </form>
+                    })
+                       
+
+                        
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
