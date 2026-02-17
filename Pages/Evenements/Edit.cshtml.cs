@@ -86,6 +86,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                     throw;
                 }
             }
+            TempData["SuccessMessage"] = "L'événement a été mis à jour avec succès.";
 
             return RedirectToPage("./Index");
         }

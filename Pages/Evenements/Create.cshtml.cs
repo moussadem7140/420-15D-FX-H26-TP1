@@ -108,6 +108,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
 
             _context.evenements.Add(Evenement);
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Événement créé avec succès.";
 
             return RedirectToPage("/Index");
         }

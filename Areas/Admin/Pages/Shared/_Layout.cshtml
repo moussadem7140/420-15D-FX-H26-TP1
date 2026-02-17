@@ -1,0 +1,113 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin - @ViewData["Title"]</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            min-height: 100vh;
+        }
+
+            .admin-sidebar a {
+                color: #cbd5e1;
+                padding: 12px 20px;
+                display: block;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+
+                .admin-sidebar a:hover {
+                    background: rgba(0, 255, 200, 0.15);
+                    color: #00ffd5;
+                }
+
+        .admin-header {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .admin-content {
+            padding: 40px;
+        }
+
+        .admin-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .admin-title {
+            font-weight: 600;
+            color: #00ffd5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d-flex">
+
+        <div class="admin-sidebar">
+            <div class="p-4 fs-4 fw-bold text-center border-bottom border-secondary">
+                 Admin
+            </div>
+
+            <a asp-area="Admin" asp-page="/Index">Tableau de Bord</a>
+            <a asp-area="Admin" asp-page="/Categories/Index">Gestion Catégories</a>
+            <a asp-area="" asp-page="/Index"> Retour au site</a>
+        </div>
+
+        <!-- MAIN -->
+        <div class="flex-grow-1">
+
+            <!-- HEADER -->
+            <div class="admin-header d-flex justify-content-between align-items-center">
+                <div class="admin-title fs-5">
+                    @ViewData["Title"]
+                </div>
+
+                <div>
+                    Connecté en admin
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="admin-content">
+                <div class="admin-card">
+                    @RenderBody()
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

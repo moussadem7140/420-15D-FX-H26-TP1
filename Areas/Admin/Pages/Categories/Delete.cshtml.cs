@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using _420_15D_FX_H26_TP1.Data;
 using _420_15D_FX_H26_TP1.Models;
 
-namespace _420_15D_FX_H26_TP1.Pages.Evenements
+namespace _420_15D_FX_H26_TP1.Areas.Admin.Pages.Categories
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
         }
 
         [BindProperty]
-        public Evenement Evenement { get; set; } = default!;
+        public Categorie Categorie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -29,11 +29,11 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                 return NotFound();
             }
 
-            var evenement = await _context.evenements.FirstOrDefaultAsync(m => m.Id == id);
+            var categorie = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (evenement is not null)
+            if (categorie is not null)
             {
-                Evenement = evenement;
+                Categorie = categorie;
 
                 return Page();
             }
@@ -48,14 +48,15 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                 return NotFound();
             }
 
-            var evenement = await _context.evenements.FindAsync(id);
-            if (evenement != null)
+            var categorie = await _context.Categories.FindAsync(id);
+            if (categorie != null)
             {
-                 evenement.IsArchived = true;
-                _context.Attach(evenement).State = EntityState.Modified;
+                Categorie = categorie;
+                Categorie.IsArchived = true;
+                _context.Attach(Categorie).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
-            TempData["SuccessMessage"] = "L'événement a été archivé avec succès.";
+            TempData["SuccessMessage"] = "La catégorie a été archivée avec succès.";
 
             return RedirectToPage("./Index");
         }

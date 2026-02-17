@@ -1,0 +1,31 @@
+﻿@page
+@model _420_15D_FX_H26_TP1.Areas.Admin.Pages.Categories.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Categorie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categorie.Nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categorie.Nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categorie.IsArchived)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categorie.IsArchived)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="/Categories/Edit" asp-area="Admin" asp-route-id="@Model.Categorie.Id">Edit</a> |
+    <a asp-area="Admin" asp-page="/Categories/Index">Retourner à la liste</a>
+</div>

@@ -25,7 +25,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Participation
                 UtilisateurId = User.Identity.Name
             });
              _context.SaveChanges();
-            TempData["MessageParticipation"] = "Vous avez participé à l'événement avec succès !";
+            TempData["SuccessMessage"] = "Vous avez participé à l'événement avec succès !";
             return RedirectToPage("/index");
         }
         public async Task<IActionResult> OnGetAnnuler(Guid evenementId)
@@ -33,7 +33,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Participation
             var P = await _context.Participations.FirstOrDefaultAsync(p => p.EvenementId == evenementId && p.UtilisateurId == User.Identity.Name);
                 _context.Participations.Remove(P);
                 await _context.SaveChangesAsync();
-                TempData["MessageParticipation"] = "Votre participation à l'événement a été annulée avec succès !";
+                TempData["SuccessMessage"] = "Votre participation à l'événement a été annulée avec succès !";
                 return RedirectToPage("/index");
             
         }

@@ -44,10 +44,19 @@
 </div>
 
 <p>
-    <a asp-page="/Evenements/Create">Ajouter un evenement</a>
+    <a asp-page="/Evenements/Create" class="btn btn-dark btn-lg d-flex align-items-center gap-2 qa-btn align-items-center m-0">Ajouter un evenement</a>
 </p>
 
 @foreach (var item in Model.Evenement) {
     @await Html.PartialAsync("_Evenement", item)
 }
 
+@{if(TempData["successMessage"] != null)
+  {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["successMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  }
+
+}
