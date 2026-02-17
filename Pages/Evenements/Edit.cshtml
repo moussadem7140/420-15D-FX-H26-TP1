@@ -1,0 +1,115 @@
+﻿@page
+@model _420_15D_FX_H26_TP1.Pages.Evenements.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Evenement</h4>
+<div class="event-card p-4 p-md-5">
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 py-2"></div>
+
+        <div class="row g-3">
+
+            <div class="col-12">
+                <label asp-for="Evenement.Nom" class="form-label text-white-75">Nom</label>
+                <div class="input-group input-group-lg">
+                    <input asp-for="Evenement.Nom" class="form-control glass-input" placeholder="Ex: Tournoi de foot, Conférence, ..." />
+                </div>
+                <span asp-validation-for="Evenement.Nom" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Evenement.DateDebut" class="form-label text-white-75">Date début</label>
+                <div class="input-group">
+                    <input asp-for="Evenement.DateDebut" type="date" class="form-control glass-input" />
+                </div>
+                <span asp-validation-for="Evenement.DateDebut" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Evenement.DateFin" class="form-label text-white-75">Date fin</label>
+                <div class="input-group">
+                    <input asp-for="Evenement.DateFin" type="date" class="form-control glass-input" />
+                </div>
+                <span asp-validation-for="Evenement.DateFin" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Evenement.Ville" class="form-label text-white-75">Ville</label>
+                <div class="input-group">
+                    <input asp-for="Evenement.Ville" class="form-control glass-input" placeholder="Québec, Montréal..." />
+                </div>
+                <span asp-validation-for="Evenement.Ville" class="text-danger small"></span>
+            </div>
+
+            <!-- Code postal -->
+            <div class="col-12 col-md-6">
+                <label asp-for="Evenement.codePostal" class="form-label text-white-75">Code postal</label>
+                <div class="input-group">
+                    <input asp-for="Evenement.codePostal" class="form-control glass-input" placeholder="G1V 0A6" />
+                </div>
+                <span asp-validation-for="Evenement.codePostal" class="text-danger small"></span>
+            </div>
+
+            <!-- Adresse -->
+            <div class="col-12">
+                <label asp-for="Evenement.Adresse" class="form-label text-white-75">Adresse</label>
+                <div class="input-group">
+                    <input asp-for="Evenement.Adresse" class="form-control glass-input" placeholder="123 rue ..." />
+                </div>
+                <span asp-validation-for="Evenement.Adresse" class="text-danger small"></span>
+            </div>
+
+            <!-- Catégorie (Select) -->
+            <div class="col-12 col-md-6">
+                <label asp-for="Evenement.CategorieId" class="form-label text-white-75">Catégorie</label>
+                <select asp-for="Evenement.CategorieId"
+                        class="form-select glass-input"
+                        asp-items="Model.Categories">
+                    <option value="">-- Choisir une catégorie --</option>
+                </select>
+                <span asp-validation-for="Evenement.CategorieId" class="text-danger small"></span>
+            </div>
+
+            <!-- Image (Upload) -->
+            @* <div class="col-12 col-md-6">
+                <label class="form-label text-white-75">Image</label>
+                <input class="form-control glass-input"
+                       type="file"
+                       asp-for="@Model.ImageUpload" />
+                <span asp-validation-for="@Model.ImageUpload" class="text-danger small"></span>
+
+            </div> *@
+
+            <!-- Description -->
+            <div class="col-12">
+                <label asp-for="Evenement.Description" class="form-label text-white-75">Description</label>
+                <textarea asp-for="Evenement.Description"
+                          class="form-control glass-input"
+                          rows="5"
+                          placeholder="Décris l'évènement (programme, infos utiles, etc.)"></textarea>
+                <span asp-validation-for="Evenement.Description" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end mt-4">
+            <a asp-page="./Index" class="btn btn-outline-light rounded-pill px-4">
+                Annuler
+            </a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 btn-glow">
+                Créer
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
