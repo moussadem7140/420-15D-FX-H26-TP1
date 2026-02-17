@@ -3,9 +3,9 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -13,12 +13,17 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    color: darkslateblue;
+    height: 100%;
+    margin: 0;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    height: 100%;
+    margin: 0;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +33,206 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+/* Fond global */
+header,footer {
+    background: rgba(11,16,32,.62);
+    backdrop-filter: blur(14px);
+}
+
+
+.brand-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c5cff, #22d3ee);
+    box-shadow: 0 10px 30px rgba(124,92,255,.25);
+}
+
+
+
+
+.search-icon {
+    width: 56px;
+    justify-content: center;
+    border-radius: 16px 0 0 16px !important;
+    opacity: .9;
+}
+
+.input-group .form-control {
+    border-radius: 0 !important;
+}
+
+.btn-gradient {
+    border: 0;
+    border-radius: 0 16px 16px 0 !important;
+    color: #fff;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(34,211,238,.9));
+    box-shadow: 0 14px 30px rgba(124,92,255,.18);
+}
+
+    .btn-gradient:hover {
+        filter: brightness(1.05);
+    }
+
+.qa-btn {
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: green;
+}
+
+    .qa-btn:hover {
+        border-color: rgba(255,255,255,.16);
+        background: rgba(255,255,255,.08) !important;
+    }
+
+.qa-emoji {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: green;
+}
+
+
+.main-bg {
+    min-height: 100vh; 
+    background-image: url('/Images/fond.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+}
+
+/* Effet "glass" compatible avec ton layout */
+.glass {
+    background: rgba(255,255,255,0.92);
+    border-radius: 18px;
+    backdrop-filter: blur(6px);
+}
+
+/* Mini */
+.event-card .event-thumb {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+    .event-card .event-thumb img {
+        transition: transform .25s ease;
+    }
+
+.event-card:hover .event-thumb img {
+    transform: scale(1.04);
+}
+
+.event-badges {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Details */
+.event-details {
+    border-radius: 22px;
+}
+
+.event-hero {
+    position: relative;
+    height: 100%;
+    min-height: 360px;
+}
+
+.event-hero-overlay {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+}
+
+.event-desc {
+    background: rgba(0,0,0,0.04);
+    padding: 12px;
+    border-radius: 14px;
+}
+
+/* Participants chips */
+.participants-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.participant-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(0, 128, 0, 0.10);
+    border: 1px solid rgba(0, 128, 0, 0.18);
+}
+
+    .participant-chip .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #198754; /* bootstrap success */
+    }
+
+/* util */
+.object-fit-cover {
+    object-fit: cover;
+}
+/* Carte "glass" */
+.event-card {
+    border-radius: 24px;
+    background: rgba(15, 25, 35, 0.55);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+}
+
+/* Inputs glass */
+.glass-input {
+    background: rgba(255,255,255,0.10) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    color: #fff !important;
+    border-radius: 14px !important;
+}
+
+    .glass-input::placeholder {
+        color: rgba(255,255,255,0.55);
+    }
+
+    .glass-input:focus {
+        border-color: rgba(86, 187, 255, 0.6) !important;
+        box-shadow: 0 0 0 .2rem rgba(86, 187, 255, 0.18) !important;
+    }
+
+/* Addons */
+.glass-addon {
+    background: rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    color: #fff;
+    border-radius: 14px 0 0 14px !important;
+}
+
+/* Texte de label un peu doux */
+.text-white-75 {
+    color: rgba(255,255,255,0.75) !important;
+}
+
+/* Bouton glow léger */
+.btn-glow {
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
 }
