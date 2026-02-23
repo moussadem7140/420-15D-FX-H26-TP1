@@ -131,6 +131,7 @@ namespace _420_15D_FX_H26_TP1.Areas.Identity.Pages.Account
 
                 //await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 //await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                //Je veux faire eviter les doublons de nom d'utilisateur et de courriel, alors je vérifie avant de créer le compte
                 if (_context.Users.Any(e => e.UserName == Input.UserName))
                     {ModelState.AddModelError("Input.UserName", "Ce nom d'utilisateur existe déjà");
                     return Page();

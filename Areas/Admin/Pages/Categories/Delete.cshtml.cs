@@ -51,6 +51,7 @@ namespace _420_15D_FX_H26_TP1.Areas.Admin.Pages.Categories
             var categorie = await _context.Categories.FindAsync(id);
             if (categorie != null)
             {
+                //One fait qu'archiver
                 Categorie = categorie;
                 Categorie.IsArchived = true;
                 _context.Attach(Categorie).State = EntityState.Modified;

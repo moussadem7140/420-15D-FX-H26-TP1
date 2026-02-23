@@ -29,7 +29,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Participation
             TempData["SuccessMessage"] = "Vous avez participé à l'événement avec succès !";
             return RedirectToPage("/index");
         }
-        public async Task<IActionResult> OnPostAnnuler(Guid Id)
+        public async Task<IActionResult> OnPostAnnuler(Guid? Id)
         {
             var P = await _context.Participations.FirstOrDefaultAsync(p => p.EvenementId == Id && p.Utilisateur.UserName == User.Identity.Name);
 

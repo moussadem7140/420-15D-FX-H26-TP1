@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using _420_15D_FX_H26_TP1.Data;
 using _420_15D_FX_H26_TP1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _420_15D_FX_H26_TP1.Pages.Evenements
 {
+    [Authorize]
     public class DeleteModel : PageModel
     {
         private readonly _420_15D_FX_H26_TP1.Data.ApplicationDbContext _context;
@@ -44,7 +46,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
         {
             Evenement = await _context.evenements.FindAsync(id);
             if (Evenement != null)
-            {
+            {// Au lieu de supprimer l'événement de la base de données, on le marque comme archivé comme discuté en classe.
                 if (Evenement.IsArchived)
                 {
                     TempData["ErrorMessage"] = "L'événement est déjà archivé.";

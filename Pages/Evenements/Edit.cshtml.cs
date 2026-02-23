@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _420_15D_FX_H26_TP1.Data;
+using _420_15D_FX_H26_TP1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _420_15D_FX_H26_TP1.Data;
-using _420_15D_FX_H26_TP1.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace _420_15D_FX_H26_TP1.Pages.Evenements
 {
+    [Authorize]
+
     public class EditModel : PageModel
     {
         private readonly _420_15D_FX_H26_TP1.Data.ApplicationDbContext _context;
@@ -52,7 +55,8 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if(_context.evenements.Any(e => e.Nom ==Evenement.Nom &&
+            // Vérification si les données ont été modifiées, car le savesChanges lance une exception de concurrence si on essaie de sauvegarder sans modification
+            if (_context.evenements.Any(e => e.Nom ==Evenement.Nom &&
                                             e.Adresse== Evenement.Adresse &&
                                             e.DateDebut== Evenement.DateDebut &&
                                             e.DateFin == Evenement.DateFin &&
@@ -81,6 +85,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                 Categories = new SelectList(_context.Categories.Where(e => !e.IsArchived), "Id", "Nom");
                 return Page();
             }
+            // Vérification des conflits d'adresse et de date en excluant l'événement actuel (en utilisant Evenement.Id != e.Id)
             if (_context.evenements.Any(e => e.Adresse == Evenement.Adresse && (Evenement.DateFin > e.DateDebut && Evenement.DateDebut < e.DateFin) && e.IsArchived == false && Evenement.Id != e.Id))
             {
 

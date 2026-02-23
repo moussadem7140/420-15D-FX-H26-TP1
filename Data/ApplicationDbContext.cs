@@ -20,30 +20,29 @@ namespace _420_15D_FX_H26_TP1.Data
             // 1) Categorie (1) -> (N) Evenements
             modelBuilder.Entity<Evenement>()
                 .HasOne(e => e.Categorie)
-                .WithMany() // si tu as Categorie.Evenements, remplace par .WithMany(c => c.Evenements)
+                .WithMany() // 
                 .HasForeignKey(e => e.CategorieId)
-                .OnDelete(DeleteBehavior.Restrict); // évite cascade multiple (tu peux mettre Cascade si tu veux)
+                .OnDelete(DeleteBehavior.Restrict); 
 
             // 2) Utilisateur (1) -> (N) EvenementsOrganises (Organisateur)
             modelBuilder.Entity<Evenement>()
                 .HasOne(e => e.Organisateur)
-                .WithMany() // si tu as Utilisateur.EvenementsOrganises, remplace par .WithMany(u => u.EvenementsOrganises)
+                .WithMany() 
                 .HasForeignKey(e => e.OrganisateurId)
-                .OnDelete(DeleteBehavior.Restrict); // IMPORTANT
-
+                .OnDelete(DeleteBehavior.Restrict); 
             // 3) Evenement (1) -> (N) Participations
             modelBuilder.Entity<Participation>()
                 .HasOne(p => p.Evenement)
-                .WithMany(e => e.Participants) // ici tu as List<Participation> Participants dans Evenement
+                .WithMany(e => e.Participants) 
                 .HasForeignKey(p => p.EvenementId)
-                .OnDelete(DeleteBehavior.Restrict); // IMPORTANT
+                .OnDelete(DeleteBehavior.Restrict); 
 
             // 4) Utilisateur (1) -> (N) Participations
             modelBuilder.Entity<Participation>()
                 .HasOne(p => p.Utilisateur)
-                .WithMany() // si tu as Utilisateur.Participations, remplace par .WithMany(u => u.Participations)
+                .WithMany() 
                 .HasForeignKey(p => p.UtilisateurId)
-                .OnDelete(DeleteBehavior.Restrict); // IMPORTANT
+                .OnDelete(DeleteBehavior.Restrict); 
         }
 
     }

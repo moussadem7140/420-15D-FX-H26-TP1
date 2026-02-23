@@ -114,6 +114,7 @@ namespace _420_15D_FX_H26_TP1.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                //Je veux permettre à l'utilisateur de se connecter avec son courriel, donc je vais chercher le nom d'utilisateur associé à ce courriel pour faire la connexion
                 string userName = _context.Users.Where(u => u.Email == Input.Email).Select(u => u.UserName).FirstOrDefault();
                 if (userName == null)
                 {

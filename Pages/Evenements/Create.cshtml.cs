@@ -1,5 +1,6 @@
 ﻿using _420_15D_FX_H26_TP1.Data;
 using _420_15D_FX_H26_TP1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,10 +13,11 @@ using System.Threading.Tasks;
 
 namespace _420_15D_FX_H26_TP1.Pages.Evenements
 {
+    [Authorize]
+
     public class CreateModel : PageModel
     {
         private readonly _420_15D_FX_H26_TP1.Data.ApplicationDbContext _context;
-        //public Parceque je compte l'utilisé dans le html
         public readonly UserManager<Utilisateur> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _environment;
@@ -68,7 +70,9 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
 
                 return Page();
             }
-            if(_context.evenements.Any(e => e.Adresse == Evenement.Adresse && (Evenement.DateFin > e.DateDebut && Evenement.DateDebut < e.DateFin) && e.IsArchived==false)){
+            //Cette validation vérifie s'il y a déjà un événement prévu à la même adresse pendant la même période, mais je laisse passer le cas ou l'
+            //evénement A se termine le même jour que l'événement B commence, ou l'événement A commence le même jour que l'événement B se termine,
+            if (_context.evenements.Any(e => e.Adresse == Evenement.Adresse && (Evenement.DateFin > e.DateDebut && Evenement.DateDebut < e.DateFin) && e.IsArchived==false)){
 
                 ModelState.AddModelError("", "Il y a déjà un événement prévu à cette adresse pendant cette période.");
                 Categories = new SelectList(_context.Categories.Where(e => e.IsArchived == false), "Id", "Nom");
@@ -126,6 +130,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                 Evenement.Id = Guid.NewGuid();
                 _context.evenements.Add(Evenement);
             await _context.SaveChangesAsync();
+            // Ajout de l'organisateur en tant que participant par principe, car il participe à son propre événement
             _context.Participations.Add(new Models.Participation()
             {
                 Id = Guid.NewGuid(),

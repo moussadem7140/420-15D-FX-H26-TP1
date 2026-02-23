@@ -40,10 +40,10 @@ builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
 });
-builder.Services.AddRazorPages(options =>
-{
-   options.Conventions.AuthorizeFolder("/Evenements");
-});
+//builder.Services.AddRazorPages(options =>
+//{
+//   options.Conventions.AuthorizeFolder("/Evenements");
+//});
 builder.Services.AddHttpClient();
 var app = builder.Build();
 app.UseExceptionHandler("/Error");
