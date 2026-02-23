@@ -48,16 +48,16 @@ builder.Services.AddHttpClient();
 var app = builder.Build();
 app.UseExceptionHandler("/Error");
 app.UseStatusCodePagesWithReExecute("/Error/{0}"); // Redirige les erreurs 404, 403, etc.  
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
 
-//    var context = services.GetRequiredService<ApplicationDbContext>();
-//    var userManager = services.GetRequiredService<UserManager<Utilisateur>>();
-//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    var userManager = services.GetRequiredService<UserManager<Utilisateur>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-//    await DbInitializer.InitializeAsync(context, userManager, roleManager);
-//}
+    await DbInitializer.InitializeAsync(context, userManager, roleManager);
+}
 
 
 // Configure the HTTP request pipeline.

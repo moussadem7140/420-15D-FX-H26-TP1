@@ -73,7 +73,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                   .OrderBy(e => e.DateDebut)
                   .ToListAsync();
                     Categories = new SelectList(_context.Categories.Where(e => !e.IsArchived), "Id", "Nom");
-                    
+
                     if (User.Identity.IsAuthenticated)
                     {
                         Evenements = await TrierParAdresse(Evenements);
@@ -111,6 +111,7 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                .Where(e => e.DateDebut >= DateTime.Now && e.IsArchived == false)
                .OrderBy(e => e.DateDebut)
                .ToListAsync();
+                Categories = new SelectList(_context.Categories.Where(e => !e.IsArchived), "Id", "Nom");
                 if (User.Identity.IsAuthenticated)
                 {
                     ViewData["titre"] = "Les Evenements les plus proches de chez vous";
