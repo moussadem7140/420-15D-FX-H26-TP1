@@ -19,7 +19,6 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
             _context = context;
         }
 
-        [BindProperty]
         public Evenement Evenement { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
@@ -43,21 +42,22 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
 
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            if (id == null)
+            Evenement = await _context.evenements.FindAsync(id);
+            if (Evenement != null)
             {
-                return NotFound();
-            }
-
-            var evenement = await _context.evenements.FindAsync(id);
-            if (evenement != null)
-            {
-                 evenement.IsArchived = true;
-                _context.Attach(evenement).State = EntityState.Modified;
+                if (Evenement.IsArchived)
+                {
+                    TempData["ErrorMessage"] = "L'événement est déjà archivé.";
+                    return RedirectToPage("/Index");
+                }
+                Evenement.IsArchived = true;
+                _context.Attach(Evenement).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-            }
-            TempData["SuccessMessage"] = "L'événement a été archivé avec succès.";
+                TempData["SuccessMessage"] = "L'événement a été archivé avec succès.";
 
-            return RedirectToPage("./Index");
+            }
+
+            return RedirectToPage("/Index");
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿@page
+﻿@page 
+@* @page *@
 @model _420_15D_FX_H26_TP1.Pages.Evenements.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details de l'evenement";
+    ViewData["titre"] = "Details de l'evenement";
+
 }
 
-<h1>Details</h1>
 
 @await Html.PartialAsync("_EvenementDetails", Model.Evenement)
 
-<a asp-page="/Evenements/Index" class="btn btn-primary">Back to List</a>
+<a asp-page="/Index" class="btn btn-primary m-3">Retour à la page d'accueil</a>

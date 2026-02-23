@@ -1,88 +1,17 @@
-﻿@page
+﻿@page 
 @model _420_15D_FX_H26_TP1.Pages.Evenements.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
+    ViewData["titre"] = "Archiver un evenement";
+
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="text-danger">Voulez vous vraiment supprimer l'evenement ?</h3>
 <div>
     <h4>Evenement</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.DateDebut)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.DateDebut)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.DateFin)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.DateFin)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Ville)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Ville)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Adresse)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Adresse)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.codePostal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.codePostal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Categorie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Categorie.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Organisateur)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Organisateur.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.Image)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.Image)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Evenement.IsArchived)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Evenement.IsArchived)
-        </dd>
-    </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Evenement.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+    <form method="post" asp-route-id ="@Model.Evenement.Id">
+        <input type="submit"  value="Oui" class="btn btn-danger" /> |
+        <a asp-page="/Index" class="btn btn-primary">Non</a>
     </form>
 </div>

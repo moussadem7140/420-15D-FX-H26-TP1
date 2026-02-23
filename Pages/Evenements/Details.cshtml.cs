@@ -28,7 +28,12 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                 return NotFound();
             }
 
-            var evenement = await _context.evenements.FirstOrDefaultAsync(m => m.Id == id);
+            var evenement = await _context.evenements.Include(Evenement => Evenement.Categorie)
+                                                     .Include(Evenement => Evenement.Organisateur)
+                                                     .Include(Evenement => Evenement.Participants)
+                                                     .ThenInclude(Participation => Participation.Utilisateur)
+                                                     .FirstOrDefaultAsync(m => m.Id == id);
+                                                     
 
             if (evenement is not null)
             {
