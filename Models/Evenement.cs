@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _420_15D_FX_H26_TP1.Models
 {
@@ -43,6 +44,9 @@ namespace _420_15D_FX_H26_TP1.Models
         public string Image {  get; set; }
         public bool IsArchived {  get; set; } = false;
 
-       
+        [NotMapped]
+        public double? Distance { get; set; }    
+
+
     }
 }
