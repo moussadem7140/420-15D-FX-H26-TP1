@@ -5,58 +5,94 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="fw-bold text-white">Les Evenements</h1>
+@{
+    if (TempData["successMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show bg-success" role="alert">
+            @TempData["successMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+@{
+    if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show bg-danger" role="alert">
+            @TempData["successMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
 <div class="container py-3 text-center">
     <div class="row g-2 align-items-center">
 
-        <!-- Search -->
-        <div class="col-12 col-lg">
-            <form class="input-group input-group-lg" method="get" asp-page="/Evenements/Index">
-                <input class="form-control border-0 bg-dark text-white"
-                       type="text"
-                       name="q"
-                       placeholder="Rechercher un événement (nom, ville, catégorie...)"
-                       autocomplete="off" />
-                <button class="btn btn-gradient px-4" type="submit">Rechercher</button>
+        <div class="col-lg-8">
+            <form method="get"
+                  asp-page="/Index"
+                  class="input-group input-group-lg">
 
+                <input asp-for="motCle"
+                       class="form-control border-0 bg-dark text-white"
+                       placeholder="Rechercher un événement "
+                       type="text" />
+
+                <select asp-for="CategorieCle"
+                        class="form-select border-0" asp-items="@Model.Categories">
+                    <option value="">-- Toutes les catégories --</option>
+                </select>
+
+                <button type="submit" class="btn btn-success px-4">
+                    Rechercher
+                </button>
             </form>
         </div>
 
-        <!-- Quick actions -->
-        <div class="col-12 col-lg-auto">
-            <div class="d-flex gap-2 justify-content-lg-end">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-lg-end gap-2">
 
-                <a class="btn btn-dark btn-lg d-flex align-items-center gap-2 qa-btn"
-                   asp-page="/Participations/MesParticipations" title="Mes participations">
-                    <span class="qa-emoji">🎟️</span>
-                    <span class="d-none d-md-inline">Mes participations</span>
-                </a>
+                    <a class="btn btn-success btn-lg d-flex align-items-center gap-2 qa-btn"
+                       asp-page="/Index"
+                       asp-page-handler="Participations"
+                       title="Mes participations">
+                        <span class="qa-emoji">🎟️</span>
+                        <span class="d-none d-md-inline">Participations</span>
+                    </a>
 
-                <a class="btn btn-dark btn-lg d-flex align-items-center gap-2 qa-btn"
-                   asp-page="/Evenements/MesOrganisations" title="Mes organisations">
-                    <span class="qa-emoji">📌</span>
-                    <span class="d-none d-md-inline">Mes organisations</span>
-                </a>
+                    <a class="btn btn-success btn-lg d-flex align-items-center gap-2 qa-btn"
+                       asp-page="/Index"
+                       asp-page-handler="MesEvenements"
+                       title="Mes organisations">
+                        <span class="qa-emoji">📌</span>
+                        <span class="d-none d-md-inline">Organisations</span>
+                    </a>
 
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>
-
-<p>
-    <a asp-page="/Evenements/Create" class="btn btn-dark btn-lg d-flex align-items-center gap-2 qa-btn align-items-center m-0">Ajouter un evenement</a>
-</p>
-
-@foreach (var item in Model.Evenement) {
-    @await Html.PartialAsync("_Evenement", item)
+       
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <p class="container text-center">
+            <a asp-page="/Evenements/Create" class="qa-btn p-5 pt-2 pb-2 text-white fw-bold text-center text-decoration-none">Ajouter un evenement</a>
+        </p>            
+    }
 }
 
-@{if(TempData["successMessage"] != null)
-  {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["successMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  }
+<div  class="row justify-content-around gap-2">
+    @foreach (var item in @Model.Evenement)
+    {
+        <div class="col-3">
+            @await Html.PartialAsync("_Evenement", item)
+        </div>
+    }
 
-}
+</div>
+
+
+
+
