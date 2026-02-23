@@ -96,8 +96,6 @@ namespace _420_15D_FX_H26_TP1.Pages.Evenements
                .ToListAsync();
             ViewData["titre"] = "La liste de mes participations";
             Categories = new SelectList(_context.Categories.Where(e => !e.IsArchived), "Id", "Nom");
-
-
         }
         public async Task OnGetMesEvenements()
         {

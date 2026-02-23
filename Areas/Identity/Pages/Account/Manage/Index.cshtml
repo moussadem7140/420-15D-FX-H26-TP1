@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="editForm" method="post">
+            <h2 class="text-primary text-center">@ViewData["Title"]</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" aria-required="true" />
+                <label asp-for="Username">Nom d'utilisateur</label>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.Nom" class="form-control" aria-required="true" placeholder="" />
+                <label asp-for="user.Nom">Nom</label>
+                <span asp-validation-for="user.Nom" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.Prenom" class="form-control" aria-required="true" placeholder="" />
+                <label asp-for="user.Prenom">prenom</label>
+                <span asp-validation-for="user.Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.Ville" class="form-control" aria-required="true" placeholder="" />
+                <label asp-for="user.Ville">Ville</label>
+                <span asp-validation-for="user.Ville" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.Adresse" class="form-control" aria-required="true" placeholder="1791 chemin des rives" />
+                <label asp-for="user.Adresse">Adresse</label>
+                <span asp-validation-for="user.Adresse" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.codePostal" class="form-control" autocomplete="username" aria-required="true" placeholder="A1A 2A6" />
+                <label asp-for="user.codePostal">Code postal</label>
+                <span asp-validation-for="user.codePostal" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.UserName" class="form-control" aria-required="true" type="hidden" />
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="user.Email" class="form-control" aria-required="true" type="hidden"/>
+            </div>
+            <button id="editSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Modifier</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

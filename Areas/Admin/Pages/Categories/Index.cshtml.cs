@@ -23,7 +23,8 @@ namespace _420_15D_FX_H26_TP1.Areas.Admin.Pages.Categories
 
         public async Task OnGetAsync()
         {
-            Categorie = await _context.Categories.ToListAsync();
+            Categorie = await _context.Categories.Where(c => c.IsArchived == false)
+                .ToListAsync();
         }
     }
 }

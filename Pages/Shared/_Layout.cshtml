@@ -43,8 +43,11 @@
         
 
     </header>
-      <main class="py-4 pb-footerbar main-bg">
-        @RenderBody()
+      <main class="py-4 pb-footerbar main-bg ">
+          <div class="container">
+            <h1 class="fw-bold  text-primary text-center"> @ViewData["titre"]</h1>
+            @RenderBody()
+          </div>
     </main>
 
     <footer class="footerbar border-top app-glass text-center">

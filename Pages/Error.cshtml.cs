@@ -12,9 +12,11 @@ namespace _420_15D_FX_H26_TP1.Pages
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        public void OnGet()
+        public int Code { get;  set; }
+
+        public void OnGet(int? code)
         {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            Code = code ?? 500;
         }
     }
 
