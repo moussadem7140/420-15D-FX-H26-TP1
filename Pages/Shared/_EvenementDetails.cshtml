@@ -2,8 +2,8 @@
 @model Evenement
 
 @{
-    string d1 = Model.DateDebut.ToString("dd MMM yyyy");
-    string d2 = Model.DateFin.ToString("dd MMM yyyy");
+    string d1 = Model.DateDebut.ToString("dd MMM yyyy HH:mm");
+    string d2 = Model.DateFin.ToString("dd MMM yyyy HH:mm");
     // private readonly IConfiguration _configuration;
     string img = string.IsNullOrEmpty(Model.Image) ? "/Images/parDefaut.jpg" : $"/Images/{Model.Image}";
     Utilisateur orga = Model.Organisateur;
@@ -30,7 +30,19 @@
                 <div class="text-muted mb-3">
                     <span class="fw-semibold">@Model.Ville</span> — @Model.Adresse, @Model.codePostal
                 </div>
+                <div class="fw-bold text-truncate">
+                    @{
+                        if (Model.IsArchived)
+                        {
+                            <span class="badge rounded-pill text-bg-danger">* Inactif</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill text-bg-success">* Actif</span>
 
+                        }
+                    }
+                </div>
                 <div class="mb-3">
                     <div class="fw-semibold mb-1">Description</div>
                     <div class="event-desc">
@@ -46,7 +58,6 @@
                             <div class="fw-semibold">
                                 @(orga == null ? "Non défini" : $"{orga.Prenom} {orga.Nom}")
                             </div>
-                            <div class="text-muted small">Compte utilisateur (AspNetUsers)</div>
                         </div>
                     </div>
                 </div>
@@ -78,11 +89,11 @@
                 </div>
 
                 @{
-                    if (User.Identity.IsAuthenticated)
+                    if (User.Identity.IsAuthenticated && !Model.IsArchived)
                     {
                         <div class="d-flex gap-2">
-
-                            if(!@Model.Participants.Any(p => p.UtilisateurId == User.Identity.Name) && !@User.Identity.Name==@Model.OrganisateurId)
+                        @{
+                            if(!@Model.Participants.Any(p => p.Utilisateur.UserName == User.Identity.Name))
                             {
                             <form method="post" class="flex-fill"
                                   asp-page="/Participation/Participer" asp-route-id="@Model.Id">
@@ -92,20 +103,14 @@
                             </form>
                             
                             }
-                            else if(@User.Identity.Name == @Model.OrganisateurId))
-                            {
-                            <form method="post" class="flex-fill"
-                                  asp-page="/Evenements/Edit"  asp-route-id="@Model.Id">
-                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill w-100">
+                            else if(@User.Identity.Name == @Model.Organisateur.UserName)
+                            {                    
+                                <a  asp-page="/Evenements/Edit"  asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger rounded-pill w-100">
                                     Modifier
-                                </button>
-                            </form>
-                            <form method="post" class="flex-fill"
-                                  asp-page="/Evenements/Delete"  asp-route-id="@Model.Id">
-                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill w-100">
-                                Supprimer
-                                </button>
-                            </form>
+                                </a>
+                                    <a asp-page="/Evenements/Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger rounded-pill w-100">
+                                        Supprimer
+                                    </a>
                             }
                             else{
                             <form method="post" class="flex-fill"
@@ -115,6 +120,8 @@
                                 </button>
                             </form>
                             }
+                        }
+                        
 
                         </div>
                     }
@@ -123,7 +130,7 @@
 
 
                     <a class="btn btn-outline-primary rounded-pill px-4"
-                       asp-page="/Evenements/Index">
+                       asp-page="/Index">
                         Retour
                     </a>
                 </div>
